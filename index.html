@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat with Luke's CV</title>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" placeholder="Type your message..." />
+        <button id="send-button">Send</button>
+    </div>
+    
+    <script>
+        const chatLog = document.getElementById('chat-log');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        
+        // Function to display messages in the chat log.
+        function appendMessage(role, content) {
+            const message = document.createElement('p');
+            message.textContent = `${role}: ${content}`;
+            chatLog.appendChild(message);
+        }
+
+        // Event listener for the send button.
+        sendButton.addEventListener('click', () => {
+            const userMessage = userInput.value;
+            appendMessage('You', userMessage);
+            
+            // You can add logic here to send the user's message to a backend or ChatGPT API.
+
+            userInput.value = ''; // Clear the user input field.
+        });
+    </script>
+</body>
+</html>
