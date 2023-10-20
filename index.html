@@ -22,6 +22,12 @@
             chatLog.appendChild(message);
         }
 
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+        
         // Event listener for the send button.
         sendButton.addEventListener('click', () => {
             const userMessage = userInput.value;
@@ -32,11 +38,6 @@
             userInput.value = ''; // Clear the user input field.
         });
 
-        userInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                sendButton.click();
-            }
-        });
     </script>
 </body>
 </html>
