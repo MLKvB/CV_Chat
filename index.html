@@ -31,6 +31,12 @@
 
             userInput.value = ''; // Clear the user input field.
         });
+
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendButton.click();
+            }
+        });
     </script>
 </body>
 </html>
