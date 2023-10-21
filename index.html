@@ -33,7 +33,22 @@
             const userMessage = userInput.value;
             appendMessage('Luke', userMessage);
             
-            // You can add logic here to send the user's message to a backend or ChatGPT API.
+            // Send the user's message to the ChatGPT API.
+            const response = await fetch('/your-chatgpt-endpoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: `respond to the following in pirate speak: ${userMessage}` }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const chatGptResponse = data.choices[0].text;
+                appendMessage('ChatGPT', chatGptResponse);
+            } else {
+                appendMessage('ChatGPT', 'Error: Unable to get a response from ChatGPT.');
+            }
 
             userInput.value = ''; // Clear the user input field.
         });
