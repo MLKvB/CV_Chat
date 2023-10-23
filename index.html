@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ChatGPT API Example v2</title>
+    <title>ChatGPT API Example v3</title>
 </head>
 <body>
     <input type="text" id="input-field">
@@ -11,12 +11,19 @@
     <script>
         function sendRequest() {
             const input = document.getElementById("input-field").value;
-            const url = "https://api.openai.com/v1/engines/davinci-codex/completions";
+            const url = "https://api.openai.com/v1/chat/completions";
             const data = {
-                prompt: input,
-                max_tokens: 60,
-                n: 1,
-                stop: "\n"
+                model: "gpt-3.5-turbo",
+                messages: [
+                    {
+                        role: "system",
+                        content: "You are a helpful assistant.",
+                    },
+                    {
+                        role: "user",
+                        content: input,
+                    },
+                ],
             };
             const headers = {
                 "Content-Type": "application/json",
