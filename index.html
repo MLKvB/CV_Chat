@@ -1,58 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chat with Luke's CV</title>
+    <title>ChatGPT API Example</title>
 </head>
 <body>
-    <div id="chat-container">
-        <div id="chat-log"></div>
-        <input type="text" id="user-input" placeholder="Type your message..." />
-        <button id="send-button">Send</button>
-    </div>
-    
+    <input type="text" id="input-field">
+    <button onclick="sendRequest()">Submit</button>
+    <div id="output"></div>
+
     <script>
-        const chatLog = document.getElementById('chat-log');
-        const userInput = document.getElementById('user-input');
-        const sendButton = document.getElementById('send-button');
-        
-        // Function to display messages in the chat log.
-        function appendMessage(role, content) {
-            const message = document.createElement('p');
-            message.textContent = `${role}: ${content}`;
-            chatLog.appendChild(message);
+        function sendRequest() {
+            const input = document.getElementById("input-field").value;
+            const url = "https://api.openai.com/v1/engines/davinci-codex/completions";
+            const data = {
+                prompt: input,
+                max_tokens: 60,
+                n: 1,
+                stop: "\n"
+            };
+            const headers = {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer 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"
+            };
+
+            fetch(url, {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const output = document.getElementById("output");
+                output.innerHTML = data.choices[0].text;
+            })
+            .catch(error => console.error(error));
         }
-
-        userInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                sendButton.click();
-            }
-        });
-        
-        // Event listener for the send button.
-        sendButton.addEventListener('click', () => {
-            const userMessage = userInput.value;
-            appendMessage('Luke', userMessage);
-            
-            // Send the user's message to the ChatGPT API.
-            const response = await fetch('https://46uam5xh96.execute-api.ap-southeast-2.amazonaws.com/default/passToChatGPT', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message: `respond to the following in pirate speak: ${userMessage}` }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const chatGptResponse = data.choices[0].text;
-                appendMessage('ChatGPT', chatGptResponse);
-            } else {
-                appendMessage('ChatGPT', 'Error: Unable to get a response from ChatGPT.');
-            }
-
-            userInput.value = ''; // Clear the user input field.
-        });
-
     </script>
 </body>
 </html>
