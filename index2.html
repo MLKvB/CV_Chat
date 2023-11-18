@@ -17,9 +17,10 @@
     <script>
         function processInput() {
             var userInput = document.getElementById("inputText").value;
-
-            fetch('https://7os3l70sif.execute-api.ap-southeast-2.amazonaws.com/default/testLambda', {
+            
+            fetch('YOUR_API_GATEWAY_URL_OR_LAMBDA_FUNCTION_URL', {
                 method: 'POST',
+                mode: 'cors', // Add this line
                 body: JSON.stringify({ inputText: userInput }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,7 +32,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-            });            
+            });
         }
     </script>
 </body>
