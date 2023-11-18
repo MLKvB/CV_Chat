@@ -20,13 +20,18 @@
             
             fetch('https://b5chwz9pa4.execute-api.ap-southeast-2.amazonaws.com/default/testLambda', {
                 method: 'POST',
-                mode: 'no-cors', // Add this line
-                body: JSON.stringify({ inputText: userInput }),
+                mode: 'cors', // Change 'no-cors' to 'cors'
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({ inputText: userInput }),
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 document.getElementById("result").innerText = data.body;
             })
