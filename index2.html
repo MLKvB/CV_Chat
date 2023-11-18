@@ -31,7 +31,7 @@
                     throw new Error('Network response was not ok');
                 }
                 
-                document.getElementById("result").innerText = response 
+                document.getElementById("result").innerText = response.body
                 // return response.json();
             })
             .then(data => {
