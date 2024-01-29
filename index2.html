@@ -6,15 +6,20 @@
     <title>AWS Lambda Example</title>
 </head>
 <body>
-    <h1>Simple Web Page - echo and append</h1>
+    <h1>Simple Web Page - echo and append, now with enter</h1>
     <form id="myForm">
         <label for="inputText">Enter text:</label>
         <input type="text" id="inputText" name="inputText">
         <button type="button" onclick="processInput()">Submit</button>
     </form>
     <p id="result"></p>
-
+    
     <script>
+        document.getElementById("myForm").onkeydown = function(e) {
+           if(e.keyCode == 13){
+                processInput();
+           }
+        }
         function processInput() {
             var userInput = document.getElementById("result").innerText + "\n" + document.getElementById("inputText").value;
             document.getElementById("result").innerText = userInput;
