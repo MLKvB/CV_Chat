@@ -6,7 +6,7 @@
     <title>AWS Lambda Example</title>
 </head>
 <body>
-    <h1>Simple Web Page - echo only</h1>
+    <h1>Simple Web Page - echo and append</h1>
     <form id="myForm">
         <label for="inputText">Enter text:</label>
         <input type="text" id="inputText" name="inputText">
@@ -16,7 +16,7 @@
 
     <script>
         function processInput() {
-            var userInput = document.getElementById("inputText").value;
+            var userInput = document.getElementById("result").innerText + "\n" + document.getElementById("inputText").value;
             document.getElementById("result").innerText = userInput;
         }
     </script>
